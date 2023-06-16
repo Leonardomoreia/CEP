@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {MeucepService} from '../services/meucep.service';
+import { AlertController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +9,16 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(
+    public mensagem: AlertController,
+    public nav: NavController,
+    private cep: MeucepService
+    ) {}
+
+
+    searchCEP(evento){
+      const cepDig = evento.detail.value;
+
+    }
 
 }
