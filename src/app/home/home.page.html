@@ -11,6 +11,9 @@
             expand="block"
             style="color: #222"
             placeholder="00000-000"
+            (ionChange)="searchCEP($event)"
+            maxlength="8"
+            [(ngModel)]="endereco.cep"
           ></ion-input>
         </ion-item>
       </ion-col>
@@ -25,6 +28,7 @@
           expand="block"
           style="color: #222"
           placeholder="Ex:1000"
+          [(ngModel)]="endereco.numero"
         ></ion-input>
       </ion-item>
     </ion-col>
@@ -36,6 +40,7 @@
           expand="block"
           style="color: #222"
           placeholder="Casa"
+          [(ngModel)]="endereco.complemento"
         ></ion-input>
       </ion-item>
     </ion-col>
@@ -48,6 +53,7 @@
           expand="block"
           style="color: #222"
           placeholder="Ex: Avenida Paraná"
+          [(ngModel)]="endereco.endereco"
         ></ion-input>
       </ion-item>
     </ion-col>
@@ -59,6 +65,7 @@
           expand="block"
           style="color: #222"
           placeholder="Ex: Águas Claras"
+          [(ngModel)]="endereco.bairro"
         ></ion-input>
       </ion-item>
     </ion-col>
@@ -70,6 +77,7 @@
           expand="block"
           style="color: #222"
           placeholder="Ex: Curitiba"
+          [(ngModel)]="endereco.cidade"
         ></ion-input>
       </ion-item>
     </ion-col>
@@ -81,17 +89,19 @@
           expand="block"
           style="color: #222"
           placeholder="Ex: PR"
+          [(ngModel)]="endereco.estado"
         ></ion-input>
       </ion-item>
     </ion-col>
   </div>
-
 </ion-content>
 
 <ion-footer>
   <ion-row>
     <ion-col class="espaco">
-      <ion-button shape="block" color=" secondary">Cadastrar</ion-button>
+      <ion-button shape="block" color="success" (click)="cadastrar()"
+        >Cadastrar</ion-button
+      >
     </ion-col>
   </ion-row>
 </ion-footer>
