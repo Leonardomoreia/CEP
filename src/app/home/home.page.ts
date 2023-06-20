@@ -25,13 +25,19 @@ export class HomePage {
     private cep: MeucepService
   ) {}
 
+  ionViewDidEnter() {
+    if (localStorage.getItem('cep')) {
+      this.editar();
+    } else {
+      this.limpaDados();
+    }
+  }
   searchCEP(evento: any) {
     const cepDig = evento.detail.value;
     console.log(cepDig);
     if (cepDig.length == 8) {
-      this.cep
-        .localizaCep(cepDig)
-        .then((resp) => {
+      this.cep.localizaCep(cepDig).subscribe(
+        (resp) => {
           this.dados = resp;
           console.log(resp);
           if (!this.dados || this.dados.erro) {
@@ -41,11 +47,14 @@ export class HomePage {
             this.endereco.bairro = this.dados.bairro;
             this.endereco.cidade = this.dados.localidade;
             this.endereco.estado = this.dados.uf;
+            this.endereco.complemento = this.dados.complemento;
+            this.endereco.numero = this.dados.numero;
           }
-        })
-        .catch(() => {
+        },
+        (erro) => {
           this.exibeToast('CEP não encontrado', 'warning');
-        });
+        }
+      );
     }
   }
 
@@ -58,10 +67,33 @@ export class HomePage {
       this.endereco.bairro == ''
     ) {
       this.exibeToast('Preencher ps campos necessários', 'danger');
-    }else{
-      this.nav.navigateForward('conclusao')
+    } else {
+      this.salvamento();
+      this.nav.navigateForward('conclusao');
     }
   }
+
+  salvamento() {
+    localStorage.setItem('endereco', this.endereco.endereco);
+    localStorage.setItem('cep', this.endereco.cep);
+    localStorage.setItem('numero', this.endereco.numero);
+    localStorage.setItem('bairro', this.endereco.bairro);
+    localStorage.setItem('cidade', this.endereco.cidade);
+    localStorage.setItem('estado', this.endereco.estado);
+    localStorage.setItem('comp', this.endereco.complemento);
+  }
+
+  limpaDados() {
+    this.endereco.endereco = '';
+    this.endereco.numero = '';
+    this.endereco.complemento = '';
+    this.endereco.bairro = '';
+    this.endereco.cep = '';
+    this.endereco.cidade = '';
+    this.endereco.estado = '';
+  }
+
+  editar() {}
 
   async exibeToast(msg: string, cor: string) {
     const toast = await this.mensagem.create({
