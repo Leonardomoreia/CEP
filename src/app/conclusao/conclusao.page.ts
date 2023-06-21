@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
+import { EnderecosService } from '../services/enderecos.service';
 
 @Component({
   selector: 'app-conclusao',
@@ -7,7 +8,7 @@ import { AlertController, NavController } from '@ionic/angular';
   styleUrls: ['./conclusao.page.scss'],
 })
 export class ConclusaoPage implements OnInit {
-  endereco = {
+   endereco = {
     endereco: '',
     numero: '',
     complemento: '',
@@ -17,9 +18,15 @@ export class ConclusaoPage implements OnInit {
     estado: '',
   };
 
-  constructor(public alerta: AlertController, public nav: NavController) {}
+  public enderecos: any[] = [];
 
-  ngOnInit(){ }
+  constructor(
+    public alerta: AlertController,
+    public nav: NavController,
+    public servicos: EnderecosService
+  ) {}
+
+  ngOnInit() {}
 
   ionViewDidEnter() {
     this.carregaDados();
@@ -27,18 +34,17 @@ export class ConclusaoPage implements OnInit {
 
   async voltar() {
     const voltando = await this.alerta.create({
-      header: 'ATENÇÃO!',
-      message: 'Deseja retorar ? Perderá todos os dados!',
+      header: 'ATENÇÃO',
+      message: 'Deseja adicionar um novo endereço?',
       buttons: [
         {
           text: 'Não',
-          role: 'cancel',
+          role: 'Cancel',
         },
         {
-          text: 'Retornar',
+          text: 'Sim',
           handler: () => {
-            localStorage.clear();
-            this.nav.navigateBack('/');
+            this.nav.navigateBack('home');
           },
         },
       ],
@@ -46,13 +52,13 @@ export class ConclusaoPage implements OnInit {
     await voltando.present();
   }
 
+  editar() {
+    this.nav.navigateRoot('/');
+  }
+
   carregaDados() {
-    this.endereco.endereco = localStorage.getItem('endereco')!;
-    this.endereco.numero = localStorage.getItem('numero')!;
-    this.endereco.complemento = localStorage.getItem('comp')!;
-    this.endereco.bairro = localStorage.getItem('bairro')!;
-    this.endereco.cep = localStorage.getItem('cep')!;
-    this.endereco.cidade = localStorage.getItem('cidade')!;
-    this.endereco.estado = localStorage.getItem('estado')!;
+    if (this.servicos.listar()) {
+      this.enderecos = this.servicos.listar()!;
+    }
   }
 }
