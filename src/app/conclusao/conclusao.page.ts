@@ -8,7 +8,7 @@ import { EnderecosService } from '../services/enderecos.service';
   styleUrls: ['./conclusao.page.scss'],
 })
 export class ConclusaoPage implements OnInit {
-   endereco = {
+  endereco = {
     endereco: '',
     numero: '',
     complemento: '',
@@ -35,14 +35,11 @@ export class ConclusaoPage implements OnInit {
   async voltar() {
     const voltando = await this.alerta.create({
       header: 'ATENÇÃO',
-      message: 'Deseja adicionar um novo endereço?',
+      message: 'Nenhum endereço encontrado, cadastre um novo!',
       buttons: [
+        
         {
-          text: 'Não',
-          role: 'Cancel',
-        },
-        {
-          text: 'Sim',
+          text: 'OK',
           handler: () => {
             this.nav.navigateBack('home');
           },
@@ -52,13 +49,25 @@ export class ConclusaoPage implements OnInit {
     await voltando.present();
   }
 
-  editar() {
+  novo() {
     this.nav.navigateRoot('/');
   }
+
+
+  
 
   carregaDados() {
     if (this.servicos.listar()) {
       this.enderecos = this.servicos.listar()!;
+
+      if (this.enderecos.length == 0) {
+      this.voltar();
+      }
     }
+  }
+
+  deletar(cep: string) {
+    this.servicos.deletar(cep);
+    this.carregaDados();
   }
 }
