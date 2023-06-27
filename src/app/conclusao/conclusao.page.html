@@ -10,17 +10,14 @@
 </ion-header> -->
 
 <ion-content [fullscreen]="true">
-  <div *ngFor="let end of enderecos">
+  <div *ngFor="let end of Pets">
     <ion-card>
-      <img src="../../assets/imagem.jpg" alt="" />
+      
 
       <ion-card-header>
-        <ion-card-title
-          >{{end.city}} - {{end.uf}}</ion-card-title
-        >
+        <ion-card-title>{{pet.nome}} - {{end.idade}}</ion-card-title>
         <ion-card-subtitle
-          >{{end.rua}}, {{end.nmr}} -
-          {{end.bairro}}</ion-card-subtitle
+          >{{end.rua}}, {{end.nmr}} - {{end.bairro}}</ion-card-subtitle
         >
       </ion-card-header>
 
@@ -43,9 +40,8 @@
             </ion-button>
           </ion-col> -->
           <ion-col size="4">
-            <ion-button size="small" color="danger"
-             (click)="deletar(end.cep)">
-              <ion-icon name="create-outline"></ion-icon>
+            <ion-button size="small" color="danger" (click)="deletar(end.cep)">
+              <ion-icon name="trash-outline"></ion-icon>
               <ion-label style="margin-top: 0; margin-left: 6px"
                 >Excluir</ion-label
               >

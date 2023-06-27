@@ -5,15 +5,16 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class MeucepService {
+export class MeuCepService {
   constructor(private http: HttpClient) {}
 
-  localizaCep(cod: string): Observable<any> {
-    const url = `https://viacep.com.br/ws/${cod}/json/`;
+  /*localizapet(Pet: string): Observable<any> {
+    const url = `https://dog.ceo/api/breeds/image/random/${pet}/json/`;
 
     const header = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
     };
+
     return this.http.get(url, header);
-  }
+  }*/
 }

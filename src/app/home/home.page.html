@@ -1,20 +1,18 @@
 <ion-content class="fundo" [fullscreen]="true">
-  
   <div class="espaco">
     <ion-row style="margin-top: 30px">
       <ion-col>
-        <ion-item class="roundedInput" line="none">
-          <ion-label position="floating"
-            >NOME <span style="color: red">*</span></ion-label
-          >
+        <ion-item class="roudedInput" line="none">
+          <ion-label position="floating">
+            Nome <span style="color: red">*</span>
+          </ion-label>
           <ion-input
             type="text"
             expand="block"
             style="color: #222"
-            placeholder="...."
-            (ionChange)="searchCEP($event)"
-            maxlenght="8"
-            [(ngModel)]="endereco.cep"
+            placeholder="*****"
+            maxlength="8"
+            [(ngModel)]="Pet.nome"
           ></ion-input>
         </ion-item>
       </ion-col>
@@ -22,31 +20,29 @@
 
     <ion-row>
       <ion-col>
-        <ion-item class="roundedInput" line="none">
-          <ion-label position="floating"
-            >IDADE <span style="color: red">*</span></ion-label
-          >
+        <ion-item class="roudedInput" line="none">
+          <ion-label position="floating">
+            Idade <span style="color: red">*</span>
+          </ion-label>
           <ion-input
             type="text"
             expand="block"
             style="color: #222"
-            placeholder="...."
-            [(ngModel)]="endereco.numero"
+            placeholder="******"
+            [(ngModel)]="Pet.idade"
           ></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
-
-    
   </div>
 </ion-content>
 
 <ion-footer>
   <ion-row>
     <ion-col class="espaco">
-      <ion-button shape="block" color="success" (click)="cadastrar()"
-        >{{LabelBotao}}</ion-button
-      >
+      <ion-button shape="block" color="secondary" (click)="cadastrar()">
+        {{labelBotao}}
+      </ion-button>
     </ion-col>
   </ion-row>
 </ion-footer>

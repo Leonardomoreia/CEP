@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 import { EnderecosService } from '../services/enderecos.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-conclusao',
@@ -8,22 +9,23 @@ import { EnderecosService } from '../services/enderecos.service';
   styleUrls: ['./conclusao.page.scss'],
 })
 export class ConclusaoPage implements OnInit {
-  endereco = {
-    endereco: '',
-    numero: '',
-    complemento: '',
-    bairro: '',
-    cep: '',
-    cidade: '',
-    estado: '',
+  PET = {
+    nome: '',
+    idade: '',
   };
 
-  public Dogs: any[] = [];
+  public Pets: any[] = [];
+  public url = 'https://dog.ceo/api/breeds/image/random';
+  public imagem = '';
+  public result:any = {};
+
+  
 
   constructor(
     public alerta: AlertController,
     public nav: NavController,
-    public servicos: EnderecosService
+    public servicos: EnderecosService,
+    private http: HttpClient
   ) {}
 
   ngOnInit() {}
@@ -35,9 +37,8 @@ export class ConclusaoPage implements OnInit {
   async voltar() {
     const voltando = await this.alerta.create({
       header: 'ATENÇÃO',
-      message: 'Nenhum endereço encontrado, cadastre um novo!',
+      message: 'Nenhum Pet encontrado, cadastre um novo!',
       buttons: [
-        
         {
           text: 'OK',
           handler: () => {
@@ -54,20 +55,32 @@ export class ConclusaoPage implements OnInit {
   }
 
 
+  gerar() {
+    this.consultaApi().subscribe(
+      (resp) => {
+        this.result = resp;
+        this.imagem = this.result.message;
+      },
+      (error) => {}
+    );
+  }
   
+  consultaApi() {
+    return this.http.get(this.url);
+  }
 
   carregaDados() {
     if (this.servicos.listar()) {
-      this.enderecos = this.servicos.listar()!;
+      this.Pets = this.servicos.listar()!;
 
-      if (this.enderecos.length == 0) {
-      this.voltar();
+      if (this.Pets.length == 0) {
+        this.voltar();
       }
     }
   }
 
-  deletar(cep: string) {
-    this.servicos.deletar(cep);
+  deletar(pet: string) {
+    this.servicos.deletar(pet);
     this.carregaDados();
   }
 }
