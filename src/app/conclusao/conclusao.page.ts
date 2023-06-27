@@ -18,7 +18,7 @@ export class ConclusaoPage implements OnInit {
     estado: '',
   };
 
-  public enderecos: any[] = [];
+  public Dogs: any[] = [];
 
   constructor(
     public alerta: AlertController,

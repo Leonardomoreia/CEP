@@ -1,20 +1,20 @@
 <ion-content class="fundo" [fullscreen]="true">
+  
   <div class="espaco">
     <ion-row style="margin-top: 30px">
       <ion-col>
         <ion-item class="roundedInput" line="none">
           <ion-label position="floating"
-            >CEP <span style="color: red">*</span></ion-label
+            >NOME <span style="color: red">*</span></ion-label
           >
           <ion-input
             type="text"
             expand="block"
             style="color: #222"
-            placeholder="00000-000"
+            placeholder="...."
             (ionChange)="searchCEP($event)"
             maxlenght="8"
             [(ngModel)]="endereco.cep"
-            
           ></ion-input>
         </ion-item>
       </ion-col>
@@ -24,102 +24,29 @@
       <ion-col>
         <ion-item class="roundedInput" line="none">
           <ion-label position="floating"
-            >Número <span style="color: red">*</span></ion-label
+            >IDADE <span style="color: red">*</span></ion-label
           >
           <ion-input
             type="text"
             expand="block"
             style="color: #222"
-            placeholder="Número"
+            placeholder="...."
             [(ngModel)]="endereco.numero"
           ></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
 
-    <ion-row>
-      <ion-col>
-        <ion-item class="roundedInput" line="none">
-          <ion-label position="floating"
-            >Complemento <span style="color: red">*</span></ion-label
-          >
-          <ion-input
-            type="text"
-            expand="block"
-            style="color: #222"
-            placeholder="Complemento"
-            [(ngModel)]="endereco.complemento"
-          ></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-item class="roundedInput" line="none">
-          <ion-label position="floating">Rua</ion-label>
-          <ion-input
-            type="text"
-            expand="block"
-            style="color: #222"
-            placeholder="Rua"
-            [(ngModel)]="endereco.endereco"
-          ></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-item class="roundedInput" line="none">
-          <ion-label position="floating">Bairro</ion-label>
-          <ion-input
-            type="text"
-            expand="block"
-            style="color: #222"
-            placeholder="Bairro"
-            [(ngModel)]="endereco.bairro"
-          ></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-item class="roundedInput" line="none">
-          <ion-label position="floating">Cidade</ion-label>
-          <ion-input
-            type="text"
-            expand="block"
-            style="color: #222"
-            placeholder="Cidade"
-            [(ngModel)]="endereco.cidade"
-          ></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-item class="roundedInput" line="none">
-          <ion-label position="floating">Estado</ion-label>
-          <ion-input
-            type="text"
-            expand="block"
-            style="color: #222"
-            placeholder="Estado"
-            [(ngModel)]="endereco.estado"
-          ></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
+    
   </div>
 </ion-content>
 
 <ion-footer>
   <ion-row>
     <ion-col class="espaco">
-      <ion-button shape="block" color="success" (click)="cadastrar()">{{LabelBotao}}</ion-button>
+      <ion-button shape="block" color="success" (click)="cadastrar()"
+        >{{LabelBotao}}</ion-button
+      >
     </ion-col>
   </ion-row>
 </ion-footer>

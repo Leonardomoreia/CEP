@@ -12,13 +12,9 @@ import { EnderecosService } from '../services/enderecos.service';
 export class HomePage {
   dados: any = {};
   endereco = {
-    endereco: '',
-    numero: '',
-    complemento: '',
-    bairro: '',
-    cep: '',
-    cidade: '',
-    estado: '',
+    Idade: '',
+    Nome: '',
+   
   };
 
   LabelBotao = 'cadastrar()'
@@ -43,10 +39,9 @@ searchCEP(evento :any){
       if(!this.dados || this.dados.erro){
         this.exibeToast('CEP não encontrado', 'warning')
       }else{
-        this.endereco.endereco = this.dados.logradouro;
-        this.endereco.bairro = this.dados.bairro;
-        this.endereco.cidade = this.dados.localidade;
-        this.endereco.estado = this.dados.uf;
+        this.endereco.Nome = this.dados.logradouro;
+        this.endereco.Idade = this.dados.bairro;
+        
       }
       },
       (erro)=>{
@@ -58,11 +53,10 @@ searchCEP(evento :any){
 }
 
 cadastrar(){
- if(this.endereco.cidade == '' ||
-      this.endereco.estado == '' ||
-      this.endereco.endereco == '' ||
-      this.endereco.cep == '' ||
-      this.endereco.bairro == ''
+ if(this.dados.Nome == '' ||
+      this.dados.Idade == '' 
+      
+      
       ){
         this.exibeToast('Preencher os campos necessários', 'danger');
       }else{
@@ -74,16 +68,12 @@ cadastrar(){
 salvamento(){
     //this.enderecos.push(this.endereco)
     this.servico.salvarEndereco(
-      this.endereco.endereco,
+      this.dados.endereco,
       this.endereco.numero, 
-      this.endereco.cep,  
-      this.endereco.complemento, 
-      this.endereco.bairro,
-      this.endereco.cidade,
-      this.endereco.estado
+      
     );
 
-    
+    this.nav.navigateRoot('conclusao')
 
   // localStorage.setItem("endereco",this.endereco.endereco)
   // localStorage.setItem("cep",this.endereco.cep)
@@ -106,17 +96,7 @@ limpaDados(){
     this.endereco.estado = '';
 }
 
-// editar(){
-//   this.LabelBotao = 'Editar'
 
-//   this.endereco.endereco = localStorage.getItem('endereco')!;
-//   this.endereco.numero = localStorage.getItem('numero')!;
-//   this.endereco.complemento = localStorage.getItem('complemento')!;
-//   this.endereco.bairro = localStorage.getItem('bairro')!;
-//   this.endereco.cep = localStorage.getItem('cep')!;
-//   this.endereco.cidade = localStorage.getItem('cidade')!;
-//   this.endereco.estado = localStorage.getItem('estado')!;
-// }
 
 async exibeToast(msg: string, cor: string){
   const toast = await this.mensagem.create({
